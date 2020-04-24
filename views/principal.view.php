@@ -37,13 +37,13 @@ class PrincipalView
                 <div class=\"hidden lg:block\">
                     <ul class=\"inline-flex\">
                     <li>
-                        <a class=\"px-4 font-bold\" href=\"./\">Inicio</a>
+                        <a class=\"px-4 " . (!array_key_exists("pagina", $_GET) ? "font-bold" : "") . "\" href=\"./\">Inicio</a>
                     </li>
                     <li>
-                        <a class=\"px-4 hover:text-gray-800\" href=\"./?pagina=registrar\">Registrar proyecto</a>
+                        <a class=\"px-4 hover:text-gray-800 " . (array_key_exists("pagina", $_GET) && $_GET["pagina"] == "registrar" ? "font-bold" : "") . " \" href=\"./?pagina=registrar\">Registrar proyecto</a>
                     </li>
                     <li>
-                        <a class=\"px-4 hover:text-gray-800\" href=\"./?pagina=autenticacion\">Iniciar sesión</a>
+                        <a class=\"px-4 hover:text-gray-800 " . (array_key_exists("pagina", $_GET) && $_GET["pagina"] == "autenticacion" ? "font-bold" : "") . "\" href=\"./?pagina=autenticacion\">Iniciar sesión</a>
                     </li>
                     </ul>
                 </div>

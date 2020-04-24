@@ -20,9 +20,11 @@
         <?php
             include "./views/principal.view.php";
             include "./views/registrar.view.php";
+            include "./views/usuario.view.php";
 
             $principalView = new PrincipalView();
             $registrarView = new RegistrarView();
+            $usuarioView = new UsuarioView();
 
             if (isset($_POST['action']) && $_POST['action'] == "registrar") {
                 # registrar
@@ -30,7 +32,7 @@
             } else if (isset($_POST['action']) && $_POST['action'] == "autenticacion") {
                 # autenticar
             } else if (isset($_GET['pagina']) && $_GET['pagina'] == "autenticacion") {
-                echo $principalView->outputNavigation();
+                echo $usuarioView->output();
             } else if (isset($_GET['pagina']) && $_GET['pagina'] == "registrar") {
                 echo $principalView->outputNavigation();
                 echo $registrarView->output();
