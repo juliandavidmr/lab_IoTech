@@ -16,7 +16,7 @@ class PrincipalView
                 >
                 <a
                     class=\"font-bold text-2xl lg:text-4xl\"
-                    href=\"/\"
+                    href=\"./\"
                 >
                     IoTech
                 </a>

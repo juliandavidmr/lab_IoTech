@@ -2,20 +2,45 @@
 
 class DBConnect {
 
-    private $mysqli;
+    private $connection = null;
 
-    public function connect(string $host, string $username, string $password, string $database)
-    {
-        this->$mysqli = new mysqli($host, $username, $password, $database);
+    public function __construct(string $host, string $username, string $password, string $database) {
+        $con = new mysqli($host, $username, $password, $database);
 
-        if (this->$mysqli->connect_error) {
-			die("Error de conexión (" . this->$mysqli->connect_errno . ")" . this->$mysqli->connect_error);
+        if ($con->connect_error) {
+			die("Error de conexión (" . $con->connect_errno . ")" . $con->connect_error);
         }
+
+        $this->connection = $con;
     }
 
     public function query(string $sentencia) {
-        return this->$mysqli->query($sentencia);
+        return $this->connection->query($sentencia);
     }
+
+    public function select(string $sentencia){
+        $list = [];
+        $consulta=$this->connection->query($sentencia);
+
+        while($filas = $consulta->fetch_assoc()){
+            $list[] = $filas;
+        }
+
+        return $list;
+    }
+
+    public function real_escape_string(string $v)
+    {
+        return $this->connection->real_escape_string($v);
+    }
+
+    public function close()
+    {
+        if (isset($this->connection)) {
+            $this->connection->close();
+        }
+    }
+
 }
 
 ?>

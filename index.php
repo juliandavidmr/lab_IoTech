@@ -18,17 +18,41 @@
         <![endif]-->
 
         <?php
+            include "./database/db.php";
+            $db = new DBConnect('localhost', 'root', '', 'iotech_db');
+
+            // Vistas
             include "./views/principal.view.php";
             include "./views/registrar.view.php";
             include "./views/usuario.view.php";
+            include "./views/proyecto.view.php";
 
             $principalView = new PrincipalView();
             $registrarView = new RegistrarView();
             $usuarioView = new UsuarioView();
 
+            // Controladores
+            include "./controllers/proyecto.controller.php";
+
+            // Modelos
+            include "./models/proyecto.php";
+            include "./models/usuario.php";
+
             if (isset($_POST['action']) && $_POST['action'] == "registrar") {
-                # registrar
-                echo "<div>POST Registrar</div>";
+                $proyectoModel = new ProyectoModel($db);
+                $proyectoModel->nombreEmpresa = $db->real_escape_string(strval($_POST["nombreEmpresa"]));
+                $proyectoModel->NIT = $db->real_escape_string(strval($_POST["NIT"]));
+                $proyectoModel->telefono = $db->real_escape_string(strval($_POST["telefono"]));
+                $proyectoModel->email = $db->real_escape_string(strval($_POST["email"]));
+                $proyectoModel->propuesta = $db->real_escape_string(strval($_POST["propuesta"]));
+
+                $proyectoController = new ProyectoController($proyectoModel);
+
+                // Muestra la barra de navegacion de la pagina.
+                echo $principalView->outputNavigation();
+
+                // Llamar accion 'registrar' del controlador proyecto para registrar el proyecto en la base de datos.
+                echo $proyectoController->registrar();
             } else if (isset($_POST['action']) && $_POST['action'] == "autenticacion") {
                 # autenticar
             } else if (isset($_GET['pagina']) && $_GET['pagina'] == "autenticacion") {

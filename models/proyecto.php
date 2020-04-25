@@ -1,17 +1,20 @@
 <?php
 
 class ProyectoModel {
-    public $nombreEmpresa;
-    public $NIT;
-    public $telefono;
-    public $email;
-    public $propuesta;
+    public string $nombreEmpresa;
+    public string $NIT;
+    public string $telefono;
+    public string $email;
+    public string $propuesta;
 
-    public function __construct() {}
+    private DBConnect $db;
+
+    public function __construct(DBConnect $db) {
+        $this->db = $db;
+    }
 
     public function registrar() {
-        // Base de datos
-        return True;
+        return $this->db->query("INSERT INTO proyecto(`nombreEmpresa`, `nit`, `telefono`, `email`, `propuesta`) VALUES ('$this->nombreEmpresa', '$this->NIT', '$this->telefono', '$this->email', '$this->propuesta');");
     }
 }
 
