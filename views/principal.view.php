@@ -70,9 +70,9 @@ class PrincipalView
               tecnológico humano.
 
               </h3>
-              <button class=\"bg-white font-bold rounded-full py-4 px-8 shadow-lg uppercase tracking-wider\">
-                Pre Order
-              </button>
+              <a class=\"bg-white font-bold rounded-full py-4 px-8 shadow-lg uppercase tracking-wider\" href='./?pagina=registrar'>
+                Envíanos tu propuesta
+              </a>
             </div>
           </div>
           <!-- Features -->

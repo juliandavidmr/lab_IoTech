@@ -63,6 +63,8 @@
             } else {
                 echo $principalView->output();
             }
+
+            $db->close();
         ?>
     </body>
 </html>
