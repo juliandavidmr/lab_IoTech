@@ -11,7 +11,10 @@
         }
 
         public function autenticar() {
-            $sql = "SELECT * FROM usuario WHERE password = PASSWORD('$this->password') AND username = '$this->username'";
+            $sql = "
+				SELECT *
+				FROM usuario
+				WHERE password = PASSWORD('$this->password') AND username = '$this->username'";
             $data = $this->db->query($sql);
 
             if (isset($data)) {         

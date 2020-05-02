@@ -14,11 +14,15 @@ class ProyectoModel {
     }
 
     public function registrar() {
-        return $this->db->query("INSERT INTO proyecto(`nombreEmpresa`, `nit`, `telefono`, `email`, `propuesta`) VALUES ('$this->nombreEmpresa', '$this->NIT', '$this->telefono', '$this->email', '$this->propuesta');");
+        return $this->db->query("
+			INSERT INTO proyecto
+				(`nombreEmpresa`, `nit`, `telefono`, `email`, `propuesta`)
+			VALUES
+				('$this->nombreEmpresa', '$this->NIT', '$this->telefono', '$this->email', '$this->propuesta');
+		");
     }
 
-    public function getProyectos()
-    {
+    public function getProyectos() {
         return $this->db->query("SELECT * FROM proyecto;");
     }
 }

@@ -29,18 +29,15 @@ class DBConnect {
         return $list;
     }
 
-    public function real_escape_string(string $v)
-    {
+    public function real_escape_string(string $v) {
         return $this->connection->real_escape_string($v);
     }
 
-    public function close()
-    {
+    public function close() {
         if (isset($this->connection)) {
             $this->connection->close();
         }
     }
-
 }
 
 ?>

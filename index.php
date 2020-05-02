@@ -27,13 +27,13 @@
             include "./models/proyecto.php";
             include "./models/usuario.php";
 
+            // Controladores
+            include "./controllers/proyecto.controller.php";
+            include "./controllers/usuario.controller.php";
+
             $principalView = new PrincipalView();
             $registrarView = new RegistrarView();
             $usuarioView = new UsuarioView(new ProyectoModel($db));
-
-            // Controladores
-            include "./controllers/proyecto.controller.php";
-
 
             if (isset($_POST['action']) && $_POST['action'] == "registrar") {
                 $proyectoModel = new ProyectoModel($db);
@@ -56,15 +56,18 @@
                     $db->real_escape_string(strval($_POST["username"])),
                     $db->real_escape_string(strval($_POST["password"]))
                 );
+                
+                $proyectoModel = new ProyectoModel($db);
+				$usuarioController = new UsuarioController($usuarioModel, $proyectoModel);
+                $resultado = $usuarioController->autenticar();
 
-                if ($usuarioModel->autenticar()) {
-                    $proyectoView = new ProyectoView(new ProyectoModel($db));
+                if ($resultado[0]) {
+                    $proyectoView = new ProyectoView($proyectoModel);
                     echo $principalView->outputNavigation();
                     echo $proyectoView->listarProyectos();
                 } else {
-                    echo $usuarioView->output(True);
+                    echo $resultado[1];
                 }
-                
             } else if (isset($_GET['pagina']) && $_GET['pagina'] == "autenticacion") {
                 echo $usuarioView->output();
             } else if (isset($_GET['pagina']) && $_GET['pagina'] == "registrar") {
