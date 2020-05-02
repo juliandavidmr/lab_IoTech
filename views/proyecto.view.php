@@ -38,6 +38,40 @@ class ProyectoView {
         ";
     }
 
+    public function listarProyectos()
+    {
+        $content = "<br><h1 class='text-3xl flex-none'>Propuestas de proyectos</h1>";
+        $content .= "<div class='flex flex-wrap mb-4'>";
+
+        $resultado = $this->model->getProyectos();
+
+        /* obtener un array asociativo */
+        while ($fila = $resultado->fetch_assoc()) {
+            $content .= "
+            <div class='w-2/5 px-4 py-2 m-2 max-w-sm rounded overflow-hidden shadow-lg hover:bg-gray-100 cursor-pointer'>
+                <div class='px-6 py-4'>
+                    <div class='font-bold text-xl mb-2'>{$fila["nombreEmpresa"]}</div>
+                    <p class='text-gray-700 text-base'>
+                        <strong>NIT:</strong> {$fila["nit"]} <br/>
+                        <strong>Telefono:</strong> {$fila["telefono"]} <br/>
+                        <strong>Email:</strong> {$fila["email"]} <br/>
+                    </p>
+                    <p class='text-gray-700 text-base'>
+                        {$fila["propuesta"]}
+                    </p>
+                </div>
+            </div>
+            ";
+        }
+        $content .= "</div>";
+
+        return "
+        <div class='container mx-auto px-6 py-2'>
+            $content
+        </div>
+        ";
+    }
+
     public function output() {
         return '<h1>' . $this->model->text .'</h1>';
     }

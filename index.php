@@ -6,17 +6,13 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>iotech</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700" rel="stylesheet" />
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
         <?php
             include "./database/db.php";
             $db = new DBConnect('localhost', 'root', '', 'iotech_db');
@@ -27,16 +23,17 @@
             include "./views/usuario.view.php";
             include "./views/proyecto.view.php";
 
+            // Modelos
+            include "./models/proyecto.php";
+            include "./models/usuario.php";
+
             $principalView = new PrincipalView();
             $registrarView = new RegistrarView();
-            $usuarioView = new UsuarioView();
+            $usuarioView = new UsuarioView(new ProyectoModel($db));
 
             // Controladores
             include "./controllers/proyecto.controller.php";
 
-            // Modelos
-            include "./models/proyecto.php";
-            include "./models/usuario.php";
 
             if (isset($_POST['action']) && $_POST['action'] == "registrar") {
                 $proyectoModel = new ProyectoModel($db);
@@ -53,8 +50,21 @@
 
                 // Llamar accion 'registrar' del controlador proyecto para registrar el proyecto en la base de datos.
                 echo $proyectoController->registrar();
-            } else if (isset($_POST['action']) && $_POST['action'] == "autenticacion") {
-                # autenticar
+            } else if (isset($_POST['action']) && $_POST['action'] == "autenticacion") { # autenticar
+                $usuarioModel = new Usuario(
+                    $db,
+                    $db->real_escape_string(strval($_POST["username"])),
+                    $db->real_escape_string(strval($_POST["password"]))
+                );
+
+                if ($usuarioModel->autenticar()) {
+                    $proyectoView = new ProyectoView(new ProyectoModel($db));
+                    echo $principalView->outputNavigation();
+                    echo $proyectoView->listarProyectos();
+                } else {
+                    echo $usuarioView->output(True);
+                }
+                
             } else if (isset($_GET['pagina']) && $_GET['pagina'] == "autenticacion") {
                 echo $usuarioView->output();
             } else if (isset($_GET['pagina']) && $_GET['pagina'] == "registrar") {

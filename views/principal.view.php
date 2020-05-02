@@ -4,7 +4,6 @@ class PrincipalView
 {
     public function __construct()
     {
-        # code...
     }
 
     public function outputNavigation()
