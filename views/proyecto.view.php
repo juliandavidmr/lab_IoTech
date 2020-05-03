@@ -7,6 +7,9 @@ class ProyectoView {
         $this->model = $model;
     }
     
+    /**
+     * Devuelve un mensaje informativo, usado para mostrar errores al registrar una propuesta de proyecto.
+     */
     public function outputRegistrado() {
         $empresa = $this->model->nombreEmpresa;
 
@@ -25,6 +28,9 @@ class ProyectoView {
         ";
     }
 
+    /**
+     * Devuelve un mensaje de error, usado para mostrar errores al registrar una propuesta de proyecto.
+     */
     public function outputErrorRegistro()
     {
         return "
@@ -38,6 +44,9 @@ class ProyectoView {
         ";
     }
 
+    /**
+     * Devuelve el listado de proyectos en forma de tarjetas.
+     */
     public function listarProyectos()
     {
         $content = "<br><h1 class='text-3xl flex-none'>Propuestas de proyectos</h1>";

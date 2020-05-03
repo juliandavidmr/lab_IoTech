@@ -6,6 +6,9 @@ class PrincipalView
     {
     }
 
+    /**
+     * Devolver barra de navegación.
+     */
     public function outputNavigation()
     {
         return "
@@ -51,6 +54,9 @@ class PrincipalView
         ";
     }
 
+    /**
+     * Devuelte cuerpo de la pagina principal.
+     */
     public function output()
     {
         return $this->outputNavigation() . "

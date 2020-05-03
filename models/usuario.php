@@ -10,6 +10,9 @@
             $this->password = $password;
         }
 
+        /**
+         * Verificar si un usuario posee credenciales válidas.
+         */
         public function autenticar() {
             $sql = "
 				SELECT *

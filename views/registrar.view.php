@@ -7,6 +7,9 @@ class RegistrarView
         # code...
     }
 
+    /**
+     * Devuelve el formulario de registro de propuestas de proyectos.
+     */
     public function output()
     {
         return "

@@ -9,6 +9,10 @@ class UsuarioView {
         $this->model = $model;
     }
 
+    /**
+     * Devuelve el formulario de login.
+     * showError True para mostrar error al ingresar credenciales incorrectas.
+     */
     public function output($showError = False)
     {
         $content = "";

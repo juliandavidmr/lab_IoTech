@@ -14,10 +14,16 @@ class DBConnect {
         $this->connection = $con;
     }
 
+    /**
+     * Ejecutar una sentencia SQL y retornar el resultado.
+     */
     public function query(string $sentencia) {
         return $this->connection->query($sentencia);
     }
 
+    /**
+     * Ejecutar una sentencia SQL y retornar el resultado en forma de una lista de objetos.
+     */
     public function select(string $sentencia){
         $list = [];
         $consulta=$this->connection->query($sentencia);
@@ -29,10 +35,16 @@ class DBConnect {
         return $list;
     }
 
+    /**
+     * Escapar cadena de texto para corregir problemas de seguridad en inyeccion SQL.
+     */
     public function real_escape_string(string $v) {
         return $this->connection->real_escape_string($v);
     }
 
+    /**
+     * Cerrar conexion con la base de datos.
+     */
     public function close() {
         if (isset($this->connection)) {
             $this->connection->close();

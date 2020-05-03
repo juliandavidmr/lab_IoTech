@@ -50,15 +50,19 @@
 
                 // Llamar accion 'registrar' del controlador proyecto para registrar el proyecto en la base de datos.
                 echo $proyectoController->registrar();
-            } else if (isset($_POST['action']) && $_POST['action'] == "autenticacion") { # autenticar
+            } else if (isset($_POST['action']) && $_POST['action'] == "autenticacion") {
+                // Captura y escapa los valores provenientes de la peticion POST.
                 $usuarioModel = new Usuario(
                     $db,
                     $db->real_escape_string(strval($_POST["username"])),
                     $db->real_escape_string(strval($_POST["password"]))
                 );
                 
+                // Inicializar los modelos.
                 $proyectoModel = new ProyectoModel($db);
-				$usuarioController = new UsuarioController($usuarioModel, $proyectoModel);
+                $usuarioController = new UsuarioController($usuarioModel, $proyectoModel);
+                
+                // Validar las credenciales de usuario.
                 $resultado = $usuarioController->autenticar();
 
                 if ($resultado[0]) {

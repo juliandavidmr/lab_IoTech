@@ -13,6 +13,9 @@ class ProyectoModel {
         $this->db = $db;
     }
 
+    /**
+     * Registrar un proyecto en la base de datos.
+     */
     public function registrar() {
         return $this->db->query("
 			INSERT INTO proyecto
@@ -22,6 +25,9 @@ class ProyectoModel {
 		");
     }
 
+    /**
+     * Obtener listado de proyectos registrados.
+     */
     public function getProyectos() {
         return $this->db->query("SELECT * FROM proyecto;");
     }
